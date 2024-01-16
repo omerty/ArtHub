@@ -1,0 +1,59 @@
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    script(src="../currprofile.js") 
+    link(rel="stylesheet" href="styles.css")
+
+  body
+    nav
+      a(href='/currProfile') Profile Page
+      | 
+      | 
+      a(class='button', href='/artWork') Art Work 
+      | 
+      | 
+      if accountType == 'Artist'
+        a(class='button', href='/addWorkshop') Add Workshop 
+        |
+        |
+        a(class = "button", href = '/addImage') Add Image 
+      |
+      |
+      a(class='button', href = '/notifications') Notifications
+      |
+      |
+      a(class='button', href='/signOut') Sign Out  
+    #image-container
+      img(id="profile-image", src="profile.jpg", alt="Profile Image")
+      br
+      a(id="followers", href="/following") Following: #{following}
+      br
+      a(id="followers", href="/followers") Followers : #{followers}
+      br
+      p1(id="username") Username : #{username}
+
+    .container 
+      p3(id="accType") Account Type: #{accountType}
+      br
+      form(action="/changeType", method="post")
+        select#dropdown(name="dropdown")
+          if accountType == "Patron"
+            option(value="Artist") Artist
+            option(value="Patron" selected) Patron
+          else
+            option(value="Artist" selected) Artist
+            option(value="Patron") Patron 
+
+      if accountType  == "Artist"
+        p4 <strong> Workshops </strong>
+        if workshops && workshops.length > 0
+          each workshop in workshops
+            .workshop
+              a(href=`/indivWorkshop?Artist=${workshop.Artist}&Name=${workshop.Name}`) #{workshop.Name}
+        else 
+          p No Workshop
+            
+        form(action="/addWorkshop", method="get")
+          button(type='submit') Add Workshops

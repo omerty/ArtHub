@@ -1,0 +1,37 @@
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="styles.css")
+    script(src="../currprofile.js") 
+
+  body
+    nav
+      a(href='/currProfile') Profile Page
+      | 
+      | 
+      a(class='button', href='/artWork') Art Work 
+      | 
+      | 
+      if accType == 'Artist'
+        a(class='button', href='/addWorkshop') Add Workshop 
+        |
+        |
+        a(class = "button", href = '/addImage') Add Image 
+      |
+      |
+      a(class='button', href = '/notifications') Notifications
+      |
+      |
+      a(class='button', href='/signOut') Sign Out  
+    .container
+      h1 followers
+      p Welcome, #{username}!
+      if followers.length > 0
+        ul
+          each username in followers
+            li(id=`${username}-item`)
+              a(href=`/indivArtist?Artist=${username}`) #{username}
+      else
+        p You are not followers anyone.

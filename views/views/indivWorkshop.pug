@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title Workshop Details
+  body
+    nav
+      a(href='/currProfile') Profile Page
+      | 
+      | 
+      a(class='button', href='/artWork') Art Work 
+      | 
+      | 
+      if accType == 'Artist'
+        a(class='button', href='/addWorkshop') Add Workshop 
+        |
+        |
+        a(class = "button", href = '/addImage') Add Image 
+      |
+      |
+      a(class='button', href = '/notifications') Notifications
+      |
+      |
+      a(class='button', href='/signOut') Sign Out  
+    form(action="/removeWorkshop", method="post")
+      h1 Workshop Details
+      p(id = 'Name') Name: #{Name}
+      p(id = 'Artist') Artist: #{Artist}
+      input(type="hidden", name="Artist", value=Artist)
+      input(type="hidden", name="Name", value=Name)
+  
+      button(type="submit") Remove Workshop

@@ -1,0 +1,52 @@
+doctype html
+html(lang="en")
+    head
+      meta(charset="UTF-8")
+      meta(http-equiv="X-UA-Compatible", content="IE=edge")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0")
+      title Image Gallery
+      link(rel="stylesheet" href="styles.css")
+      script(src="../artwork.js")
+
+    body
+      nav
+      a(href='/currProfile') Profile Page
+      | 
+      | 
+      a(class='button', href='/artWork') Art Work 
+      | 
+      | 
+      if accType == 'Artist'
+        a(class='button', href='/addWorkshop') Add Workshop 
+        |
+        |
+        a(class = "button", href = '/addImage') Add Image 
+      |
+      |
+      a(class='button', href = '/notifications') Notifications
+      |
+      |
+      a(class='button', href='/signOut') Sign Out 
+
+      header
+        h1 Image Gallery
+
+      section#search
+        form(action="/searchSpecific", method="post")
+          select#dropdown(name="dropdown")
+            option(value="Artist") Artist
+            option(value="Title") Title
+            option(value="Category") Category
+          label(for="search-input") Search:
+          input#search-input(name = "searchInput", type="text" placeholder="Enter author, category, or title")
+          button#search-button Search
+          a(href='/clearFilters', class='button') Clear Filters
+
+      section#gallery
+        if images && images.length > 0
+          each image in images
+            .image
+              a(href=`/specificImage?title=${image.Title}&artist=${image.Artist}&category=${image.Category}&reviews=${image.Reviews}`)
+                img(src= image.Poster, alt=image.Title)
+        else
+          p No images found

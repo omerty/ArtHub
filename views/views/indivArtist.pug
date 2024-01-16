@@ -1,0 +1,59 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Image Gallery
+    link(rel="stylesheet" href="styles.css")
+
+
+  body
+    // Navigation Links
+    nav
+      a(href='/currProfile') Profile Page
+      | 
+      | 
+      a(class='button', href='/artWork') Art Work 
+      | 
+      | 
+      if accType == 'Artist'
+        a(class='button', href='/addWorkshop') Add Workshop 
+        |
+        |
+        a(class = "button", href = '/addImage') Add Image 
+      |
+      |
+      a(class='button', href = '/notifications') Notifications
+      |
+      |
+      a(class='button', href='/signOut') Sign Out  
+
+    header
+      h1 Artist: #{allImages.length > 0 ? allImages[0].Artist : 'Unknown Artist'}
+      form(action='/FollowArtist', method='post')
+        input(type="hidden", name="Artist", value=allImages[0].Artist)
+        button(type='submit') Follow
+
+    section#gallery
+      if allImages && allImages.length > 0
+        each image in allImages
+          .image
+            a(href=`/specificImage?title=${image.Title}&artist=${image.Artist}&category=${image.Category}&reviews=${image.Reviews}`)
+              img(src=image.Poster, alt=image.Title)
+      else
+        p No images found
+      
+    section#Workshop 
+      p Artist WorkShops 
+      if Workshops && Workshops.length > 0
+        each Workshop in Workshops 
+          .workShop 
+            a(href=`/indivWorkshop?Artist=${workshop.Artist}&Name=${workshop.Name}`)  #{Workshop.name}
+        
+      else 
+        p No Workshops
+
+      
+
+

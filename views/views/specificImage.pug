@@ -1,0 +1,72 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Image Details
+    link(rel="stylesheet" href="styles.css")
+    script(src="../specificImage.js")
+
+  body
+    // Navigation Links
+    nav
+      a(href='/currProfile') Profile Page
+      | 
+      | 
+      a(class='button', href='/artWork') Art Work 
+      | 
+      | 
+      if accType == 'Artist'
+        a(class='button', href='/addWorkshop') Add Workshop 
+        |
+        |
+        a(class = "button", href = '/addImage') Add Image 
+      |
+      |
+      a(class='button', href = '/notifications') Notifications
+      |
+      |
+      a(class='button', href='/signOut') Sign Out 
+
+    header
+      h1 Image Details
+
+    section#details
+      if image
+        .image-details
+          img(src=image.Poster, alt=image.Title)
+          h2(id="imageTitle" data-title=`${image.Title}`) #{image.Title}
+          a(name="Artist", id = "Artist", data-tile = `${image.Artist}`, href=`/indivArtist?Artist=${image.Artist}`) Artist: #{image.Artist}
+          p Category: #{image.Category}
+          p Year: #{image.Year}
+          p Medium: #{image.Medium}
+          p Description: #{image.Description}
+
+          // Like and Review Form
+          form(action="/likeAndReview", method="post")
+            input(type="hidden", name="title", value=image.Title)
+            a(id = "likeAndReview" href = "#") 
+              img(id="liked-image", src="likeImage.jpg")
+            br
+            label(for="review") Review:
+            textarea(name="review", id="review", rows="4", cols="50")
+            input(type="hidden", name="artist", value=image.Artist)
+            br
+            button(type="submit") Submit
+    
+        if image.Reviews && image.Reviews.length > 0
+          h3 Reviews
+          each review in image.Reviews
+            p Review: #{review}
+        if accountType  == "Artist"
+          form(action="workShops", method = "POST")
+            p4 <strong> Workshops </strong>
+            if workshops && workshops.length > 0
+              each workshop in workshops
+                .workshop
+                  a(href=`/indivWorkshop?atrist=${workshop.Artist}&name=${workshop.Name}&category=${image.Category}&reviews=${image.Reviews}`) #{workshop.Name}
+                  form(action="/addWorkshop", method="post")
+                    button(type='submit') Add Workshops
+      else
+        p Image not found

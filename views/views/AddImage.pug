@@ -1,0 +1,60 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Image Details
+    link(rel="stylesheet" href="styles.css")
+    
+  body
+    // Navigation Links
+    nav
+      a(href='/currProfile') Profile Page
+      | 
+      | 
+      a(class='button', href='/artWork') Art Work 
+      | 
+      | 
+      if accType == 'Artist'
+        a(class='button', href='/addWorkshop') Add Workshop 
+        |
+        |
+        a(class = "button", href = '/addImage') Add Image 
+      |
+      |
+      a(class='button', href = '/notifications') Notifications
+      |
+      |
+      a(class='button', href='/signOut') Sign Out 
+
+    header
+      h1 Add Image
+
+    section#details
+      .image-details
+        form(action = '/AddImage', method = "POST")
+          label(for='Title') Title
+          input(type='text', id='Title', name='Title', required)
+          <br>
+          label(for='Artist') Artist
+          input(type='Artist', id='Artist', name='Artist', required)
+          <br>
+          label(for='Year') Year
+          input(type='text', id='Year', name='Year', required)
+          <br>
+          label(for='Category') Category
+          input(type='text', id='Category', name='Category', required)
+          <br>
+          label(for='Medium') Medium
+          input(type='text', id='Medium', name='Medium', required)
+          <br>
+          label(for='Description') Description
+          input(type='text', id='Description', name='Description', required)
+          <br>
+          label(for='Poster') Poster
+          input(type='text', id='Poster', name='Poster', required)
+          <br>
+          button(type = 'submit') Submit
+
+          

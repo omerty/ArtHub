@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title Notifications
+  body
+    nav
+      a(href='/currProfile') Profile Page
+      | 
+      | 
+      a(class='button', href='/artWork') Art Work 
+      | 
+      | 
+      if accType == 'Artist'
+        a(class='button', href='/addWorkshop') Add Workshop 
+        |
+        |
+        a(class = "button", href = '/addImage') Add Image 
+      |
+      |
+      a(class='button', href = '/notifications') Notifications
+      |
+      |
+      a(class='button', href='/signOut') Sign Out 
+    h1 Notifications
+    if notifications.length > 0
+      each notification in notifications
+        div.notification
+          p New artwork by #{notification.artist}: #{notification.artworkTitle}
+          p.timestamp #{notification.timestamp}
+    else
+      p No new notifications
